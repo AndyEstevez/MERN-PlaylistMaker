@@ -12,6 +12,9 @@
 # production
 /build
 
+# API Keys & Sensitive data for MongoDB
+/backend/.env
+
 # misc
 .DS_Store
 .env.local
