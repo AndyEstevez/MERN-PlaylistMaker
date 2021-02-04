@@ -12,7 +12,7 @@ function Navbar() {
             <ul className="nav-list-container">
             {NavbarItems.map((index) => {
                 return(
-                    <li className="nav-row" id={ window.location.pathname == index.link ? "active" : ""} onClick={() => { window.location.pathname = index.link }}>
+                    <li className="nav-row" id={ window.location.pathname === index.link ? "active" : ""} onClick={() => { window.location.pathname = index.link }}>
                         <div id="logo">{index.logo}</div>
                         <div id="name">{index.name}</div>
                     </li>

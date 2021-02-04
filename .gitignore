@@ -14,7 +14,7 @@
 
 # API Keys & Sensitive data for MongoDB
 /backend/.env
-
+/.env
 # misc
 .DS_Store
 .env.local
