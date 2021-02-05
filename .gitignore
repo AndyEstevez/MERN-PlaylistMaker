@@ -9,6 +9,11 @@
 # testing
 /coverage
 
+# experimenting with sidebar
+/src/components/pro-sidebar.js
+/src/components/navbar.css
+/src/components/sidebar-nav.js
+
 # production
 /build
 

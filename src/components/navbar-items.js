@@ -9,20 +9,24 @@ export const NavbarItems = [
         name: 'Home',
         logo: <HomeRoundedIcon/>,
         link: '/',
+        cName: 'nav-text'
     },
     {
         name: 'Search',
         logo: <SearchIcon/>,
         link: '/search',
+        cName: 'nav-text'
     },
     {
         name: 'Create Playlist',
         logo: <PlaylistAddOutlinedIcon/>,
         link: '/create-playlist',
+        cName: 'nav-text'
     },
     {
         name: 'Playlists',
         logo: <ListIcon/>,
         link: '/playlists',
+        cName: 'nav-text'
     },
 ]
