@@ -10,14 +10,14 @@ router.route('/').get((req, res) => {
 
 // create a playlist
 router.route('/create').post((req, res) => {
-    const playistName = req.body.playistName;
+    const playlistName = req.body.playlistName;
     const playlistDescription = req.body.playlistDescription;
-    const playlistCreator = req.body.playlistCreator;
+    // const playlistCreator = req.body.playlistCreator;
 
     const newPlaylist = new Playlist({
-        playistName,
+        playlistName,
         playlistDescription,
-        playlistCreator,
+        // playlistCreator,
     });
 
     newPlaylist.save()

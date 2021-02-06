@@ -15,7 +15,7 @@ const playlistSchema = new Schema({
     playlistName:{ type: String, required: true },
     playlistDescription:{ type: String, default: 'none', maxLength: 50},
     playlistSongs: [songSchema],
-    playlistCreator: { type: String, required: true },
+    playlistCreator: { type: String,  },
 }, {
     timestamps: true,
 });

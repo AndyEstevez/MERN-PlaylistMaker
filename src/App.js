@@ -10,6 +10,8 @@ import HomePage from './components/home-page';
 // import { Link } from 'react-router-dom'
 // import { NavbarItems } from './components/navbar-items'
 import NavbarObject from './components/navbar';
+import CreatePlaylist from './components/create-playlist';
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
       <Router>
         <NavbarObject/>
         <Route exact path='/' component={HomePage}/>
+        <Route exact path='/create' component={CreatePlaylist}/>
       </Router>
     </div>
   );
