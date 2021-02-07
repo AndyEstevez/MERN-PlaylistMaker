@@ -11,7 +11,7 @@ import HomePage from './components/home-page';
 // import { NavbarItems } from './components/navbar-items'
 import NavbarObject from './components/navbar';
 import CreatePlaylist from './components/create-playlist';
-
+import ViewAllPlaylists from './components/view-all-playlists';
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
         <NavbarObject/>
         <Route exact path='/' component={HomePage}/>
         <Route exact path='/create' component={CreatePlaylist}/>
+        <Route exact path='/view' component={ViewAllPlaylists}/>
       </Router>
     </div>
   );

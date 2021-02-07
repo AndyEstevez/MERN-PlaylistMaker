@@ -24,7 +24,7 @@ function NavbarObject() {
                 <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="/search">Search</Nav.Link>
                 <Nav.Link href="/create">Create Playlist</Nav.Link>
-                <Nav.Link href="/playlists">Playlists</Nav.Link>
+                <Nav.Link href="/view">Playlists</Nav.Link>
             </Nav>
         </Navbar>
     )
