@@ -13,6 +13,7 @@ export default class HomePage extends Component {
         this.state = {
             data: [],
             artistImages: [],
+            artistIds: [],
             newReleases: [],
         }
     }
@@ -23,6 +24,7 @@ export default class HomePage extends Component {
             const json = await response.json();
             this.setState({ data: json.artists.artist.slice(0, 9) });
 
+            // get new releases
             const responseNewReleases = await fetch("https://api.spotify.com/v1/browse/new-releases?country=US&limit=10", {
                 method: 'GET', headers: { 'Authorization': 'Bearer ' + process.env.REACT_APP_SPOTIFY_APIKEY }});
         
@@ -31,14 +33,20 @@ export default class HomePage extends Component {
             console.log(data.albums.items.slice(0, 9))
             this.setState({newReleases: data.albums.items.slice(0, 9)})
 
+
+            // get images of top artists
             for(let i = 0; i < this.state.data.length; i++){
                 const response = await fetch(`https://api.spotify.com/v1/search?type=artist&q=${this.state.data[i].name}`, {
                     method: 'GET', headers: { 'Authorization': 'Bearer ' + process.env.REACT_APP_SPOTIFY_APIKEY }});
-        
                 const data = await response.json();
+
                 let previousImages = [...this.state.artistImages];
+                let previousIds = [...this.state.artistIds];
+
                 previousImages.push(data.artists.items[0].images[1].url)
-                this.setState({artistImages: previousImages})
+                previousIds.push(data.artists.items[0].id)
+
+                this.setState({ artistImages: previousImages, artistIds: previousIds})
             }
         }
         catch (error) {
@@ -57,9 +65,11 @@ export default class HomePage extends Component {
                         indice += 1;
                         return(
                             <Card>
+                                <a href={`/artist/${this.state.artistIds[indice]}`}>
                                 <CardActionArea>
                                     <CardMedia component="img" alt={index.name} image={this.state.artistImages[indice]} />
                                 </CardActionArea>
+                                </a>
                                 <CardContent>
                                     <Typography>{index.name}</Typography>
                                 </CardContent>
@@ -73,9 +83,11 @@ export default class HomePage extends Component {
                     {this.state.newReleases.map(index => {
                         return(
                             <Card style={{height: "100%"}} xs>
+                                <a href={`/artist/${index.artists[0].id}`}>
                                 <CardActionArea>
                                     <CardMedia component="img" alt={index.artists[0].name} image={index.images[1].url} />
                                 </CardActionArea>
+                                </a>
                                 <CardContent>
                                     <Typography>{index.artists[0].name}</Typography>
                                 </CardContent>
