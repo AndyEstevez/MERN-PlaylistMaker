@@ -27,7 +27,7 @@ export default class ArtistPage extends Component {
     }
 
     async componentDidMount(){
-        const response = await fetch(`https://api.spotify.com/v1/artists/${this.state.id}/albums?include_groups=album%2Csingle&market=US`, {
+        const response = await fetch(`https://api.spotify.com/v1/artists/${this.state.id}/albums?include_groups=album%2Csingle&market=US&limit=50`, {
             method: 'GET', headers: { 'Authorization': 'Bearer ' + process.env.REACT_APP_SPOTIFY_APIKEY }});
 
         const json = await response.json();
@@ -45,9 +45,11 @@ export default class ArtistPage extends Component {
                         return(
                        
                             <Card style={{height: "350px", width: "250px"}}>
-                                <CardActionArea >
+                                <a href={`/album/${index.id}`}>
+                                <CardActionArea>
                                     {index.images.length > 0 ? <CardMedia style={{height: "auto", maxHeight: "250px", width: "auto", maxWidth: "250px"}} component="img" alt={index.name} image={index.images[1].url} /> : <CardMedia alt={index.name}/>}
                                 </CardActionArea>
+                                </a>
                                 <CardContent>
                                     <Typography>{index.name}</Typography>
                                 </CardContent>
@@ -56,6 +58,23 @@ export default class ArtistPage extends Component {
                     })}
                 </Grid>
                 <h1>Singles</h1>
+                <Grid container style={{alignItems:"center", justifyContent:"center"}}>
+                    {this.state.singles.map(index => {
+                        return(
+                       
+                            <Card style={{height: "350px", width: "250px"}}>
+                                <a href={`/album/${index.id}`}>
+                                <CardActionArea >
+                                    {index.images.length > 0 ? <CardMedia style={{height: "auto", maxHeight: "250px", width: "auto", maxWidth: "250px"}} component="img" alt={index.name} image={index.images[1].url} /> : <CardMedia alt={index.name}/>}
+                                </CardActionArea>
+                                </a>
+                                <CardContent>
+                                    <Typography>{index.name}</Typography>
+                                </CardContent>
+                            </Card>
+                        )
+                    })}
+                </Grid>
             </div>
         )
     }
