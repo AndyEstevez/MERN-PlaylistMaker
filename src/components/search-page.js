@@ -49,10 +49,12 @@ export default class SearchPage extends Component {
                 <Grid container style={{alignItems:"center", justifyContent:"center"}}>
                     {this.state.searchData.map(index => {
                         return(
-                            <Card onClick={window.location.href=`/artist/${index.id}/`}>
+                            <Card>
+                                <a href={`/artist/${index.id}`}>
                                 <CardActionArea>
                                     {index.images.length > 0 ? <CardMedia component="img" alt={index.name} image={index.images[2].url} /> : <CardMedia alt={index.name}/>}
                                 </CardActionArea>
+                                </a>
                                 <CardContent>
                                     <Typography>{index.name}</Typography>
                                 </CardContent>
