@@ -39,7 +39,7 @@ export default class ArtistPage extends Component {
         // console.log(this.state.albums)
         return (
             <div>
-                <h1>Albums</h1>
+                <h1 style={{textAlign: "center"}}>Albums</h1>
                 <Grid container style={{alignItems:"center", justifyContent:"center"}}>
                     {this.state.albums.map(index => {
                         return(
@@ -57,7 +57,8 @@ export default class ArtistPage extends Component {
                         )
                     })}
                 </Grid>
-                <h1>Singles</h1>
+                <br/>
+                <h1 style={{textAlign: "center"}}>Singles</h1>
                 <Grid container style={{alignItems:"center", justifyContent:"center"}}>
                     {this.state.singles.map(index => {
                         return(

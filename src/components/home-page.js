@@ -64,7 +64,7 @@ export default class HomePage extends Component {
                     {this.state.data.map(index => {
                         indice += 1;
                         return(
-                            <Card>
+                            <Card key={this.state.artistIds[indice]}>
                                 <a href={`/artist/${this.state.artistIds[indice]}`}>
                                 <CardActionArea>
                                     <CardMedia component="img" alt={index.name} image={this.state.artistImages[indice]} />
@@ -82,8 +82,8 @@ export default class HomePage extends Component {
                 <Grid container style={{alignItems:"center", justifyContent:"center"}}>
                     {this.state.newReleases.map(index => {
                         return(
-                            <Card style={{height: "100%"}} xs>
-                                <a href={`/artist/${index.artists[0].id}`}>
+                            <Card style={{height: "100%"}} key={index.id}>
+                                <a href={`/album/${index.id}`}>
                                 <CardActionArea>
                                     <CardMedia component="img" alt={index.artists[0].name} image={index.images[1].url} />
                                 </CardActionArea>
