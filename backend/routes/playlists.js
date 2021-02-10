@@ -28,9 +28,11 @@ router.route('/create').post((req, res) => {
 });
 
 // get specific playlist
-// router.route('/:id').get((req, res) => {
-//     Playlist.findById(req.params.id)
-// })
+router.route('/:id').get((req, res) => {
+    Playlist.findById(req.params.id)
+        .then(playlist => res.json(playlist))
+        .catch(error => res.status(400).json('Error: ' + error));
+})
 
 // update specific playlist
 router.route('/update/:id').post( async (req, res) => {

@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Playlist = props => (
     <tr>
         <td>{props.playlist.playlistName}</td>
         <td>{props.playlist.playlistDescription}</td>
+        <td>
+            <Link to={`/view/${props.playlist._id}`}>View</Link>
+        </td>
     </tr>
 )
 
