@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+
 
 export default class PlaylistPage extends Component {
     constructor(props){
         super(props);
+
+        this.handleDelete = this.handleDelete.bind(this);
 
         this.state = {
             id: props.match.params.id,
@@ -23,6 +27,14 @@ export default class PlaylistPage extends Component {
             .catch(function (error){
                 console.log(error)
             })
+    }
+
+    handleDelete(e){
+        axios.delete(`http://localhost:5000/playlists/delete/${e.target.value}/${this.state.id}`)
+            .then(response => console.log("Delete request: " + response.data)); 
+        
+        this.setState({ playlistSongs: this.state.playlistSongs.filter(element => element._id !== e.target.value)})
+            
     }
 
     render() {
@@ -48,6 +60,9 @@ export default class PlaylistPage extends Component {
                                     <td>{index.name}</td>
                                     <td>{index.artist}</td>
                                     <td>{index.album}</td>
+                                    <td>
+                                    <Button variant="danger" value={index._id} onClick={this.handleDelete}>Delete</Button>
+                                    </td>
                                 </tr>
                             )
                         })}

@@ -53,4 +53,16 @@ router.route('/update/:id').post( async (req, res) => {
     )
 })
 
+// delete song from playlist
+router.route('/delete/:songId/:playlistId').delete(async (req, res) => {
+    await Playlist.findOneAndUpdate(
+        {"_id": req.params.playlistId},
+        {$pull: {
+            "playlistSongs": {
+                _id: req.params.songId,
+            }
+        }}, { safe: true, multi: true}
+    )
+})
+
 module.exports = router;
