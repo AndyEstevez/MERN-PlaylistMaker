@@ -89,7 +89,7 @@ export default class TracksPage extends Component {
             artist: this.state.artistName,
             album: this.state.albumName
         }
-        axios.post('http://localhost:5000/playlists/update/' + this.state.databasePlaylists[this.state.indexPlaylist]._id, song)
+        axios.post('/playlists/update/' + this.state.databasePlaylists[this.state.indexPlaylist]._id, song)
             .then(res => console.log(res.data))
         console.log(song)
         this.setState({ open: false });
@@ -103,7 +103,7 @@ export default class TracksPage extends Component {
             album: this.state.albumName
         }
 
-        axios.post('http://localhost:5000/playlists/update/' + this.state.databasePlaylists[this.state.indexPlaylist]._id, song)
+        axios.post('/playlists/update/' + this.state.databasePlaylists[this.state.indexPlaylist]._id, song)
             .then(res => console.log(res.data))
         console.log(song)
 
@@ -111,7 +111,7 @@ export default class TracksPage extends Component {
     }
   
     async getPlaylists() {
-        await axios.get('http://localhost:5000/playlists')
+        await axios.get('/playlists')
             .then(response => {
                 this.setState({ databasePlaylists: response.data })
             })

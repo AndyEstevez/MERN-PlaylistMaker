@@ -37,7 +37,7 @@ class CreatePlaylist extends Component {
 
         console.log(playlist);
 
-        axios.post('http://localhost:5000/playlists/create', playlist)
+        axios.post(`/playlists/create`, playlist)
             .then(res => console.log(res.data));
 
         window.location = '/';

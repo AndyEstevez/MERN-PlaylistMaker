@@ -17,7 +17,7 @@ export default class PlaylistPage extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:5000/playlists/' + this.state.id)
+        axios.get(`/playlists/` + this.state.id)
             .then(response => { console.log(response)
                 this.setState({
                     playlistSongs: response.data.playlistSongs,
@@ -30,7 +30,7 @@ export default class PlaylistPage extends Component {
     }
 
     handleDelete(e){
-        axios.delete(`http://localhost:5000/playlists/delete/${e.target.value}/${this.state.id}`)
+        axios.delete(`/playlists/delete/${e.target.value}/${this.state.id}`)
             .then(response => console.log("Delete request: " + response.data)); 
         
         this.setState({ playlistSongs: this.state.playlistSongs.filter(element => element._id !== e.target.value)})

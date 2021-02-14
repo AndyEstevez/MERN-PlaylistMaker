@@ -22,7 +22,7 @@ export default class ViewAllPlaylists extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:5000/playlists/')
+        axios.get('/playlists/')
             .then(response => {
                 this.setState({ playlists: response.data }, console.log(response.data));
             })

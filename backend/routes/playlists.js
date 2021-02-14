@@ -1,10 +1,8 @@
 const router = require('express').Router();
-const { db } = require('../models/playlist.model');
 let Playlist = require('../models/playlist.model');
-let Song = require('../models/playlist.model');
 
 // show all the created playlists
-router.route('/').get((req, res) => {
+router.get('/', (req, res) => {
     Playlist.find()
         .then(playlists => res.json(playlists))
         .catch(error => res.status(400).json('Error: ' + error));
