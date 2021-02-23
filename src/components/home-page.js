@@ -20,7 +20,7 @@ export default class HomePage extends Component {
 
     async componentDidMount(){
         try {
-            const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&format=json&api_key=${process.env.REACT_APP_LASTFM_APIKEY}`)
+            const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&format=json&api_key=${process.env.REACT_APP_LASTFM_APIKEY}`)
             const json = await response.json();
             this.setState({ data: json.artists.artist.slice(0, 9) });
 

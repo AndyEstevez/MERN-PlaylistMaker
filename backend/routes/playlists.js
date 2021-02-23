@@ -1,44 +1,54 @@
 const router = require('express').Router();
 let Playlist = require('../models/playlist.model');
 
-// show all the created playlists
+
+// show all the created playlists / GET request
 router.get('/', (req, res) => {
+
+    // find() gets all the entries from the database
     Playlist.find()
         .then(playlists => res.json(playlists))
         .catch(error => res.status(400).json('Error: ' + error));
+
 });
 
-// create a playlist
+
+// create a playlist / CREATE request
 router.route('/create').post((req, res) => {
     const playlistName = req.body.playlistName;
     const playlistDescription = req.body.playlistDescription;
-    // const playlistCreator = req.body.playlistCreator;
 
+    // creating a playlist Schema
     const newPlaylist = new Playlist({
         playlistName,
         playlistDescription,
         // playlistCreator,
     });
 
+    // save() updates the database with adding the new entry of newPlaylist
     newPlaylist.save()
         .then(() => res.json('Playlist created'))
         .catch(error => res.status(400).json('Error: ' + error));
+
 });
 
-// get specific playlist
+
+// get specific playlist / GET request
 router.route('/:id').get((req, res) => {
+
+    // .findById() finds unique entry based on its ID value
     Playlist.findById(req.params.id)
         .then(playlist => res.json(playlist))
         .catch(error => res.status(400).json('Error: ' + error));
+
 })
 
-// update specific playlist
-router.route('/update/:id').post( async (req, res) => {
-    const song = {
-        name: req.body.name,
-        artist: req.body.artist,
-        album: req.body.album
-    }
+
+// update specific playlist / POST request
+router.route('/update/:id').post(async (req, res) => {
+ 
+    // findOneAndUpdate() updates an entry in database 
+    // push = add to entry
     await Playlist.findOneAndUpdate(
         { "_id": req.params.id },
         { $push: {
@@ -49,10 +59,15 @@ router.route('/update/:id').post( async (req, res) => {
             }
         }}
     )
+
 })
 
-// delete song from playlist
+
+// delete song from playlist / DELETE request
 router.route('/delete/:songId/:playlistId').delete(async (req, res) => {
+
+    // findOneAndUpdate() updates an entry in database 
+    // pull = remove from entry
     await Playlist.findOneAndUpdate(
         {"_id": req.params.playlistId},
         {$pull: {
@@ -61,6 +76,8 @@ router.route('/delete/:songId/:playlistId').delete(async (req, res) => {
             }
         }}, { safe: true, multi: true}
     )
+    
 })
+
 
 module.exports = router;
