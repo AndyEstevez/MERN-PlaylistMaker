@@ -17,6 +17,7 @@ export default class SearchPage extends Component {
         }
     }
 
+    // fetch api request based on user input and set searchData to response from api
     searchRequest = async value => {
         value = value.trim();
         const response = await fetch(`https://api.spotify.com/v1/search?q=${value}&type=artist&market=US&limit=10`, { 
@@ -28,8 +29,10 @@ export default class SearchPage extends Component {
 
     }
 
+    // handles changes to input done by the user
     onChangeHandler = async e => {
         e.preventDefault();
+        // edge case for if the user decides to delete the query to be an empty string (Example: '')
         if(e.target.value.trim() !== ''){
             this.searchRequest(e.target.value);
             this.setState({ searchQuery: e.target.value })

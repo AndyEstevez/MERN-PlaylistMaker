@@ -17,6 +17,7 @@ export default class PlaylistPage extends Component {
     }
 
     componentDidMount(){
+        // GET request to the backend to show the songs in the specific playlist from the ID
         axios.get(`/playlists/` + this.state.id)
             .then(response => { console.log(response)
                 this.setState({
@@ -29,6 +30,7 @@ export default class PlaylistPage extends Component {
             })
     }
 
+    // DELETE request of song from playlist and updates the state to show that the song is removed
     handleDelete(e){
         axios.delete(`/playlists/delete/${e.target.value}/${this.state.id}`)
             .then(response => console.log("Delete request: " + response.data)); 

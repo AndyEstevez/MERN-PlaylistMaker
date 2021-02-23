@@ -18,6 +18,7 @@ export default class ArtistPage extends Component {
         }
     }
 
+    // functions for separating albums and singles from the api request
     checkIfAlbum(data){
         return data.album_group === 'album';
     }
@@ -26,6 +27,7 @@ export default class ArtistPage extends Component {
         return data.album_group === 'single';
     }
 
+    // api request for an artists albums & singles
     async componentDidMount(){
         const response = await fetch(`https://api.spotify.com/v1/artists/${this.state.id}/albums?include_groups=album%2Csingle&market=US&limit=50`, {
             method: 'GET', headers: { 'Authorization': 'Bearer ' + process.env.REACT_APP_SPOTIFY_APIKEY }});
@@ -57,7 +59,9 @@ export default class ArtistPage extends Component {
                         )
                     })}
                 </Grid>
+
                 <br/>
+                
                 <h1 style={{textAlign: "center"}}>Singles</h1>
                 <Grid container style={{alignItems:"center", justifyContent:"center"}}>
                     {this.state.singles.map(index => {

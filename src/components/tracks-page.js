@@ -4,11 +4,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-// import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -21,9 +19,7 @@ export default class TracksPage extends Component {
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.getPlaylists = this.getPlaylists.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleButton = this.handleButton.bind(this);
-        this.handleButton = this.handlePlaylistChange.bind(this);
+        this.handlePlaylistChange = this.handlePlaylistChange.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
 
         this.state = {
@@ -43,6 +39,7 @@ export default class TracksPage extends Component {
         }
     }
 
+    // fetch the album info & tracks from the params ID 
     async componentDidMount(){
         const response = await fetch(`https://api.spotify.com/v1/albums/${this.state.id}/tracks?market=US&limit=50`, {
             method: 'GET', headers: { 'Authorization': 'Bearer ' + process.env.REACT_APP_SPOTIFY_APIKEY }});
@@ -59,6 +56,10 @@ export default class TracksPage extends Component {
             artistName: jsonAlbum.artists[0].name, totalTracks: jsonAlbum.total_tracks, releaseYear: jsonAlbum.release_date.substring(0, 4) });
     }
 
+    // functions for the pop up menu for adding a song to a playlist
+
+    // handles for when the user clicks the icon to add a song
+    // updates the state value 'open' to true
     handleOpen = (e) => {
         e.preventDefault();
 
@@ -66,15 +67,13 @@ export default class TracksPage extends Component {
         console.log(e.target.value)
         this.getPlaylists();
     }    
-    handleButton(name) {
-        this.setState({submitName: name, open: true })
-        console.log(this.state.submitName)
-        this.getPlaylists();
 
-    }
+    // closes the pop up menu 
     handleClose() {
         this.setState({ open: false });
     }
+
+    // handles for when the user is selecting a playlist to add the song to it
     handlePlaylistChange = (event) => {
         console.log(this.state.submitName)
         this.setState({ selectedPlaylist: event.target.value, 
@@ -82,6 +81,9 @@ export default class TracksPage extends Component {
                 findIndex(x => x.playlistName === event.target.value) })
         console.log(this.state.databasePlaylists.findIndex(x => x.playlistName === event.target.value))
     }
+
+    // handles for when the user is confirming to add the song to the specific playlist
+    // POST request to backend that updates the playlist that was selected
     handleAdd(e){
         e.preventDefault();
         const song = {
@@ -93,23 +95,9 @@ export default class TracksPage extends Component {
             .then(res => console.log(res.data))
         console.log(song)
         this.setState({ open: false });
-
     }
-    handleSubmit() {
 
-        const song = {
-            name: this.state.submitName,
-            artist: this.state.artistName,
-            album: this.state.albumName
-        }
-
-        axios.post('/playlists/update/' + this.state.databasePlaylists[this.state.indexPlaylist]._id, song)
-            .then(res => console.log(res.data))
-        console.log(song)
-
-        
-    }
-  
+    // GET request to backend to get all the playlists
     async getPlaylists() {
         await axios.get('/playlists')
             .then(response => {
@@ -119,9 +107,8 @@ export default class TracksPage extends Component {
 
         console.log(this.state.databasePlaylists)
     }
+
     render() {
-   
-        // console.log(this.state.tracks)
         return (
             <div style={{width: "50%", margin: "auto", paddingBottom: '100px'}}>
                 <div style={{padding: '25px 0px'}}>

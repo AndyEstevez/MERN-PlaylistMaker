@@ -15,6 +15,7 @@ class CreatePlaylist extends Component {
         }
     }
 
+    // functions to update state from user inputs 
     onChangePlaylistName(e) {
         this.setState({
             playlistName: e.target.value
@@ -27,6 +28,8 @@ class CreatePlaylist extends Component {
         })
     }
 
+    // POST request to create a playlist entry in the database
+    // create a object based on the state's values and send back to home page
     onSubmit(e){
         e.preventDefault();
 

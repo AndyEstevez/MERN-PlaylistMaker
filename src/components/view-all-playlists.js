@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+// what each row holds for a Playlist object
 const Playlist = props => (
     <tr>
         <td>{props.playlist.playlistName}</td>
@@ -21,6 +22,7 @@ export default class ViewAllPlaylists extends Component {
         }
     }
 
+    // GET request for all the playlists
     componentDidMount(){
         axios.get('/playlists/')
             .then(response => {
@@ -31,6 +33,7 @@ export default class ViewAllPlaylists extends Component {
             });
     }
 
+    // creates the list view of all playlists
     allPlaylistsList(){
         return this.state.playlists.map(current => {
             return (<Playlist playlist={current} key={current._id}/>)
